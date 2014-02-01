@@ -73,7 +73,7 @@ endif
 
 # Copy over the changelog to the device
 PRODUCT_COPY_FILES += \
-    vendor/cm/CHANGELOG.mkdn:system/etc/CHANGELOG-CM.txt
+    vendor/cm/CHANGELOG.mkdn:system/dokdo/dokdo-changelog.txt
 
 # Backup Tool
 ifneq ($(WITH_GMS),true)
@@ -129,24 +129,20 @@ PRODUCT_PACKAGES += \
 
 # Optional CM packages
 PRODUCT_PACKAGES += \
-    VoicePlus \
     Basic \
     libemoji
 
 # Custom CM packages
 PRODUCT_PACKAGES += \
-    Launcher3 \
+    HALO \
+    DashClock \
+    DokdoWallpapers \
     Trebuchet \
     DSPManager \
     libcyanogen-dsp \
     audio_effects.conf \
-    CMWallpapers \
-    Apollo \
     CMFileManager \
-    LockClock \
-    CMUpdater \
-    CMFota \
-    CMAccount
+    LockClock
 
 # CM Hardware Abstraction Framework
 PRODUCT_PACKAGES += \
@@ -199,11 +195,6 @@ PRODUCT_PACKAGES += \
     Superuser \
     su
 
-# Terminal Emulator
-PRODUCT_COPY_FILES +=  \
-    vendor/cm/proprietary/Term.apk:system/app/Term.apk \
-    vendor/cm/proprietary/lib/armeabi/libjackpal-androidterm4.so:system/lib/libjackpal-androidterm4.so
-
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.root_access=1
 else
@@ -221,6 +212,9 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/cm/overlay/common
 PRODUCT_VERSION_MAJOR = 11
 PRODUCT_VERSION_MINOR = 0
 PRODUCT_VERSION_MAINTENANCE = 0-RC0
+
+DOKDO_VERSION_MAJOR = 3
+DOKDO_VERSION_MINOR = 1
 
 # Set CM_BUILDTYPE from the env RELEASE_TYPE, for jenkins compat
 
@@ -261,6 +255,7 @@ ifdef CM_BUILDTYPE
 else
     # If CM_BUILDTYPE is not defined, set to UNOFFICIAL
     CM_BUILDTYPE := UNOFFICIAL
+    DOKDO_BUILDTYPE := UNOFFICIAL
     CM_EXTRAVERSION :=
 endif
 
@@ -282,13 +277,14 @@ ifeq ($(CM_BUILDTYPE), RELEASE)
     endif
 else
     ifeq ($(PRODUCT_VERSION_MINOR),0)
-        CM_VERSION := $(PRODUCT_VERSION_MAJOR)-$(shell date -u +%Y%m%d)-$(CM_BUILDTYPE)$(CM_EXTRAVERSION)-$(CM_BUILD)
+        CM_VERSION := $(DOKDO_VERSION_MAJOR).$(DOKDO_VERSION_MINOR)_$(shell date -u +%Y%m%d)-$(DOKDO_BUILDTYPE)-$(CM_BUILD)
     else
-        CM_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(shell date -u +%Y%m%d)-$(CM_BUILDTYPE)$(CM_EXTRAVERSION)-$(CM_BUILD)
+        CM_VERSION := $(DOKDO_VERSION_MAJOR).$(DOKDO_VERSION_MINOR)_$(shell date -u +%Y%m%d)-$(DOKDO_BUILDTYPE)-$(CM_BUILD)
     endif
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
+  ro.dokdo.version=3.1_beta_1 \
   ro.cm.version=$(CM_VERSION) \
   ro.modversion=$(CM_VERSION) \
   ro.cmlegal.url=http://www.cyanogenmod.org/docs/privacy
