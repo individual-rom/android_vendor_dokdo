@@ -136,6 +136,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     HALO \
     DashClock \
+    DokdoUpdater \
     DokdoWallpapers \
     Trebuchet \
     DSPManager \
