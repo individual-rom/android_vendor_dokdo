@@ -288,13 +288,13 @@ else
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
-  ro.dokdo.version=3.1.10_RC1 \
+  ro.dokdo.version=3.1.11_RC2 \
   ro.cm.version=$(CM_VERSION) \
   ro.modversion=$(CM_VERSION) \
   ro.cmlegal.url=http://www.cyanogenmod.org/docs/privacy \
   otaupdater.otaid=dokdo-project \
-  otaupdater.otatime=20140224-0000 \
-  otaupdater.otaver=3.1.10
+  otaupdater.otatime=20140306-0000 \
+  otaupdater.otaver=3.1.11
 
 -include vendor/cm-priv/keys/keys.mk
 
